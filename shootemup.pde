@@ -26,6 +26,7 @@ void setup()
   size(1280, 720, P2D);
   noSmooth();
   noFill();
+  frameRate(30);  
   //colorMode(HSB);
   fonteContours = createFont("data/WIDEAWAKE.TTF", 128);
   fonteRemplissage = createFont("data/WIDEAWAKEBLACK.ttf", 128);
@@ -77,7 +78,7 @@ void drawGame()
   if (focused && !pause)
   {
     surface.setTitle(str(frameRate));
-
+    
     decor.afficher();
     joueur.afficher();
     gestionDesEnnemis();

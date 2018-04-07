@@ -1,10 +1,11 @@
 class Decor
 {
-  PImage fond = loadImage("fond.png");
+  PImage fond;
   PImage[] filigranes = new PImage[10];
 
   Decor()
   {
+    fond = loadImage("fond.png");
     for (int i = 1; i < 9; i++) filigranes[i-1] = loadImage("filigranes/texture00"+i+".png");
   }
   
