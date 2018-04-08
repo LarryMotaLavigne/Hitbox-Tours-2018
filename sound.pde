@@ -6,7 +6,7 @@ Music introMusic;
 Music musicLevel_1;
 
 // SONS TIRS
-SoundEffect baseShotLaser;
+SoundEffect baseLaserShot;
 
 // SONS MISC
 SoundEffect ennemyHit;
@@ -16,13 +16,13 @@ SoundEffect ennemyHit;
     
     // MUSIQUE
     introMusic = new Music(minim, "intro", "/Sound/Music/Remastered/MenuIntroRM.mp3");
-    musicLevel_1 = new Music(minim, "level1", "/Sound/Music/Remastered/FirstMusicRadioFM.mp3");
+    musicLevel_1 = new Music(minim, "level1", "/Sound/Music/Remastered/VolumeAdjusted/Level1MusicRM.mp3");
     
     // TIRS
-    baseShotLaser = new SoundEffect(minim, "baseShot", "/Sound/Shoot/Remastered/BaseLaserShotRM.mp3");
+    baseLaserShot = new SoundEffect(minim, "baseLaserShot", "/Sound/Shoot/Remastered/VolumeAdjusted/BaseLaserShotRM.mp3");
     
     // MISC
-    ennemyHit = new SoundEffect(minim, "ennemyHit", "/Sound/Misc/Remastered/EnnemyHitRM.mp3");
+    ennemyHit = new SoundEffect(minim, "ennemyHit", "/Sound/Misc/Remastered/VolumeAdjusted/EnnemyHitRM.mp3");
   }
 
   void playIntro(){
@@ -46,10 +46,12 @@ SoundEffect ennemyHit;
   void playSoundEffect(String effectName){
     switch(effectName){
       case "baseLaserShot":
-        baseShotLaser.start();
+        baseLaserShot.start();
+        break;
       
       case "ennemyHit":
         ennemyHit.start();
+        break;
     }
   }
 }
