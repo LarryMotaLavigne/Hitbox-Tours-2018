@@ -44,7 +44,7 @@ void setup()
   citations = loadStrings("citations.txt");
   for (int i = 0; i < citations.length; i++)
   {
-    citations[i] = citations[i].replaceAll("§","\n");
+    citations[i] = citations[i].replaceAll("§", "\n");
   }
   IDCitation = int(random(0, citations.length));
   //colorMode(HSB);
@@ -53,12 +53,12 @@ void setup()
   textFont(police);
   //fonteContours = createFont("data/WIDEAWAKE.TTF", 128);
   //fonteRemplissage = createFont("data/WIDEAWAKEBLACK.ttf", 128);
-  
+
   // Musiques et Sons
   minim = new Minim(this);
   soundMaster = new SoundMaster(minim);
 
-  
+
   joueur = new Joueur(soundMaster);
   decor = new Decor();
 }
@@ -87,9 +87,9 @@ void drawMenu()
 {
   // Music de l'intro
   soundMaster.playIntro();
-  
+
   text(mouseX+"    "+mouseY, mouseX, mouseY);
-  background(204);
+  decor.afficherFond();
   fill(255, 255, 255);
   rect(width/2 - 60, height/2 - 85, 120, 30, 3);
   fill(255, 255, 255);
@@ -105,7 +105,7 @@ void drawMenu()
   text("Exit", width/2, 400);
   rectMode(CENTER);
   stroke(0);
-  fill(255,200);
+  fill(255, 200);
   rect(width/2, height-140, 600, 140, 3);
   fill(0);
   noStroke();
@@ -113,13 +113,14 @@ void drawMenu()
   textLeading(40);
   text(citations[IDCitation], width/2, height-150);
   rectMode(CORNER);
+  decor.afficherFiligranes();
 }
 
 void drawGame()
 {
   // Music du niveau
   soundMaster.playLevelMusic();
-  
+
   if (focused && !pause)
   {
     surface.setTitle(str(frameRate));
@@ -204,21 +205,20 @@ void gestionDesEnnemis()
 
 void gestionDesBoss()
 {
-  if(calmar==null){
+  if (calmar==null) {
     calmar = new Calmar();
   }
-  
-  if(calmar.collision())
+
+  if (calmar.collision())
   {
     calmar.vie--;
   }
-  
-  if(calmar.vie >= 0)
+
+  if (calmar.vie >= 0)
   {
     calmar.deplacer();
     calmar.afficher();
-  }
-  else
+  } else
   {
     calmar.moveDead(); 
     calmar.afficherDeath();

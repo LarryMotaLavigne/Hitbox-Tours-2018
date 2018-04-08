@@ -1,5 +1,6 @@
 class Ennemi extends NonPlayableObject
 {
+  int dureeDeVie;
   int[] pos = { width };
   int[] size = {150, 109};
   PImage[] ennemi = new PImage[2];
@@ -20,6 +21,7 @@ class Ennemi extends NonPlayableObject
   
   void afficher()
   {
+    dureeDeVie++;
     image(ennemi[(frameCount/5)%2],pos[0], pos[1], size[0], size[1]);
   }
   
