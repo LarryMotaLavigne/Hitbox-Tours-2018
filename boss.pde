@@ -1,5 +1,6 @@
-class Boss extends NonPlayableObject
+abstract class Boss extends NonPlayableObject
 {
+  
   int[] pos = { 1080, 360 };
   Boss()
   {
@@ -13,5 +14,19 @@ class Boss extends NonPlayableObject
   boolean collision()
   {
     return false;
+  }
+}
+class Calamar extends Boss
+{
+  Calamar()
+  {
+    
+  }
+}
+class Owen extends Boss
+{
+  Owen()
+  {
+    
   }
 }
