@@ -46,6 +46,7 @@ OneTimeSoundEffect playerDeath;
 
   void playIntro(){
     stopLevelMusic();
+    stopOwenMusic();
     introMusic.start();
   }
   
