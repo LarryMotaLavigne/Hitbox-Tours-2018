@@ -4,6 +4,7 @@ Minim minim;
 // MUSIQUES
 Music introMusic;
 Music musicLevel_1;
+Music owenBattleMusic;
 
 // SONS TIRS
 SoundEffect baseLaserShot;
@@ -25,6 +26,7 @@ OneTimeSoundEffect playerDeath;
     // MUSIQUE
     introMusic = new Music(minim, "intro", "/Sound/Music/Remastered/MenuIntroRM.mp3");
     musicLevel_1 = new Music(minim, "level1", "/Sound/Music/Remastered/VolumeAdjusted/Level1MusicRM.mp3");
+    owenBattleMusic = new Music(minim, "owenBattleMusic", "/Sound/Music/Remastered/VolumeAdjusted/OwenBattleMusicRM.mp3");
     
     // TIRS
     baseLaserShot = new SoundEffect(minim, "baseLaserShot", "/Sound/Shoot/Remastered/VolumeAdjusted/BaseLaserShotRM.mp3");
@@ -58,6 +60,15 @@ OneTimeSoundEffect playerDeath;
   
   void stopLevelMusic(){
     musicLevel_1.stop();
+  }
+  
+  void playOwenMusic(){
+    stopLevelMusic();
+    owenBattleMusic.start();
+  }
+  
+  void stopOwenMusic(){
+    owenBattleMusic.stop();
   }
   
   void playSoundEffect(String effectName){

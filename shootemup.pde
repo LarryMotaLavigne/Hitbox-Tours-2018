@@ -191,9 +191,6 @@ void drawIntro()
 
 void drawGame()
 {
-  // Music du niveau
-  soundMaster.playLevelMusic();
-
   if (focused && !pause)
   {
     surface.setTitle(str(frameRate));
@@ -235,9 +232,12 @@ void drawGameOver()
 /******************************************************************************************/
 
 void wave()
-{  
+{
   if(!isFirstWaveDead)
   {
+    // Music du niveau
+    soundMaster.playLevelMusic();
+    
     if(firstWaveMilli==0)
     {
       firstWaveMilli = millis();
@@ -328,6 +328,7 @@ void waveOwen()
 {
   if(owen==null){
     owen = new Owen(soundMaster);
+    soundMaster.playOwenMusic();
   }
 
   if (owen.collision())
