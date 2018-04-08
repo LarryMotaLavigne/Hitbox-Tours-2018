@@ -3,14 +3,18 @@ class Ennemi extends NonPlayableObject
   int[] pos = { width };
   int[] size = {150, 109};
   PImage[] ennemi = new PImage[2];
-  Ennemi()
+  SoundMaster soundMaster;
+  
+  Ennemi(SoundMaster p_soundMaster)
   {
     for (int i = 0; i < 2; i++) 
     {
       ennemi[i] = loadImage("poisson img"+i+".png");
     }
     
-    pos = append(pos, int(random(height-90-98-10)));  
+    pos = append(pos, int(random(height-90-98-10)));
+    
+    soundMaster = p_soundMaster;
   }
   
   void deplacer()
@@ -36,6 +40,7 @@ class Ennemi extends NonPlayableObject
     {
       if (joueur.tirs.get(i).pos[1] >= pos[1] && joueur.tirs.get(i).pos[1] < pos[1]+size[1] && joueur.tirs.get(i).pos[0] > pos[0] && joueur.tirs.get(i).pos[0]+20 < pos[0]+size[0])
       {
+        soundMaster.playSoundEffect("ennemyHit");
         joueur.tirs.remove(i);
         joueur.score++;
         return true;
