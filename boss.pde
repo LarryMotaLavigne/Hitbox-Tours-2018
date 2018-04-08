@@ -20,6 +20,9 @@ class Boss extends NonPlayableObject
   int timeOfDeath = 0;
   boolean isAlive = true;
   int delayForDeathAnimation = 3000;
+  
+  int timeSinceLastShot = 0;
+  int cooldownTime = 500;
  
   Boss(SoundMaster p_soundMaster, String p_deathSoundName){
     soundMaster = p_soundMaster;
@@ -150,10 +153,12 @@ class Boss extends NonPlayableObject
   
   void attack()
   {
-    if (int(random(100)) == 0)
-    {
+    if(canShoot()){
+      if (int(random(50)) == 0)
+      {
+       timeSinceLastShot = millis();
        tirs.add(new Tir(pos[0], pos[1], size[0], size[1]));
-       
+      }
     }
     
     attackCollision();
@@ -189,5 +194,9 @@ class Boss extends NonPlayableObject
   
   boolean canBeHit(){
     return (millis() - timeSinceLastHit) > invicibilityTime;
+  }
+  
+  boolean canShoot(){
+    return (millis() - timeSinceLastShot) > cooldownTime;
   }
 }
