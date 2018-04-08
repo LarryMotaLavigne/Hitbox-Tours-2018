@@ -259,7 +259,8 @@ void wave()
     waveOwen();
   }
   else{
-    state = Scene.Win; 
+    state = Scene.Win;
+    soundMaster.playIntro();
   }
 }
 
