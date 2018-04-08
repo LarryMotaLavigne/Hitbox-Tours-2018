@@ -13,6 +13,7 @@ String[] citations;
 
 // Image & Font Management
 PFont police;
+PImage[] guillemets = new PImage[2];
 //PFont fonteContours, fonteRemplissage;
 
 // Character Management
@@ -44,9 +45,10 @@ SoundMaster soundMaster;
 /******************************************************************************************/
 void setup()
 {
-  surface.setTitle("Darwin's Quest : A Bad Owen");
+  surface.setTitle("Darwin's Quest: A Bad Owen");
   //surface.setLocation(200,200);
   size(1280, 720, P2D);
+  frameRate(30);
   noSmooth();
   noStroke();
   noFill();
@@ -60,6 +62,8 @@ void setup()
   police = createFont("Velvet Heart Font.ttf", 128);
   textSize(48);
   textFont(police);
+  guillemets[0] = loadImage("guillemets0.png");
+  guillemets[1] = loadImage("guillemets1.png");
   //fonteContours = createFont("data/WIDEAWAKE.TTF", 128);
   //fonteRemplissage = createFont("data/WIDEAWAKEBLACK.ttf", 128);
 
@@ -100,9 +104,13 @@ void draw()
 
 void drawMenu()
 {
+  background(255);
   // Music de l'intro
   soundMaster.playIntro();
-  decor.afficherMenu();
+  pushMatrix();
+  translate(0, random(8)-4);
+  text(mouseX+"    "+mouseY, mouseX, mouseY);
+  decor.afficherFond();
   fill(255, 255, 255);
   rect(width/2 - 60, height/2 - 85, 120, 30, 3);
   fill(255, 255, 255);
@@ -120,6 +128,8 @@ void drawMenu()
   stroke(0);
   fill(255, 200);
   rect(width/2, height-140, 600, 140, 3);
+  image(guillemets[0], width/2-300, height-208, 57, 45);
+  image(guillemets[1], width/2+300-58, height-70-47, 57, 45);
   fill(0);
   noStroke();
   textAlign(CENTER, CENTER);
@@ -127,6 +137,7 @@ void drawMenu()
   text(citations[IDCitation], width/2, height-150);
   rectMode(CORNER);
   decor.afficherFiligranes();
+  popMatrix();
 }
 
 void drawWin()
@@ -134,14 +145,14 @@ void drawWin()
   // Music de l'intro
   soundMaster.playIntro();
 
-  decor.afficherMenu();
+  decor.afficherFond();
   textAlign(CENTER);
   textSize(128);
-  text("Darwin's Quest", width/2, 300);
+  text("Darwin's Quest", width/2, 350);
   textSize(80);
   text("A Bad Owen", width/2, 400);
   textSize(68);
-  text("Féliciations ! Vous avez finis la démo de :", width/2, 150);
+  text("Félicitations !\nVous avez finis la démo de :", width/2, 200);
   textSize(38);
   text("Réalisation : Valentine, Clément, Florian et Larry.", width/2, 680);
   textSize(28);
@@ -164,7 +175,7 @@ void drawWin()
 void drawIntro()
 {
   soundMaster.playIntro();
-  decor.afficherMenu();
+  decor.afficherFond();
   textAlign(CENTER);
   textSize(48);
   rectMode(CENTER);
@@ -209,7 +220,10 @@ void drawGame()
 
 void drawGameOver()
 {
-  decor.afficherMenu();
+  background(255);
+  pushMatrix();
+  translate(0, random(8)-4);
+  decor.afficherFond();
   fill(255, 255, 255);
   rect(width/2 - 60, height/2 - 85, 120, 30, 3);
   fill(255, 255, 255);
@@ -223,6 +237,8 @@ void drawGameOver()
   text("Retry", width/2, 300);
   textAlign(CENTER);
   text("Menu", width/2, 400);
+  decor.afficherFiligranes();
+  popMatrix();
 }
 
 /******************************************************************************************/
