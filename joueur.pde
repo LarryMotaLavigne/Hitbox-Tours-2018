@@ -35,7 +35,7 @@ class Joueur extends PlayableObject
       else image(coeur[0], i*48, 0, 48, 48);
     }
     textAlign(CENTER, CENTER);
-    texte(str(score)+"/"+ennemisGeneres, width/2, 24, 48);
+    text(str(score)+"/"+ennemisGeneres, width/2, 24, 48);
     if (degat > 0)
     {
       tint(255, 0, 0);

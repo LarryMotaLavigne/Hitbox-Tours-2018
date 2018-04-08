@@ -21,6 +21,9 @@ abstract class PlayableObject implements IGameObject
   
   abstract void tirer();
   
-  abstract void action(boolean[] touches);
+  void tirer()
+  {
+    tirs.add(new Tir(pos[0], pos[1]));
+  }
 
 }
