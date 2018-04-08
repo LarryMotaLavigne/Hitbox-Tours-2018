@@ -43,6 +43,7 @@ SoundMaster soundMaster;
 /******************************************************************************************/
 /*                                       GAME INIT                                        */
 /******************************************************************************************/
+
 void setup()
 {
   surface.setTitle("Darwin's Quest: A Bad Owen");
@@ -52,6 +53,7 @@ void setup()
   noSmooth();
   noStroke();
   noFill();
+  //surface.setIcon(loadImage("icon.png"));
   citations = loadStrings("citations.txt");
   for (int i = 0; i < citations.length; i++)
   {
