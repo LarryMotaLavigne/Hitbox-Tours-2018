@@ -291,7 +291,7 @@ void waveEnnemies(int seconds, long beginTime)
       isSecondWaveDead = true;
   }
   
-  if (int(random(100)) == 0)
+  if (int(random(70)) == 0)
   {
     ennemis.add(new Ennemi(soundMaster));
     ennemisGeneres++;
