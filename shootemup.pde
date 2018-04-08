@@ -21,6 +21,8 @@ Boss owen;
 Decor decor;
 Joueur joueur;
 ArrayList<Ennemi> ennemis = new ArrayList<Ennemi>();
+boolean isOwenDead = false;
+boolean isCalmarDead = false;
 
 // Scene Management
 enum Scene {
@@ -128,15 +130,14 @@ void drawGame()
 
     decor.afficherFond();
     joueur.afficher();
-    gestionDesBoss();
-    //gestionDesEnnemis();
+    wave();
     joueur.action(touches);
     decor.afficherFiligranes();
   } else if (moche++ == 0)
   {
     for (int i = 0; i < touches.length; i++) touches[i] = false;
     text("Pause", width/2, height/2-36, 72);
-    text("Quitter", width/2, height/2+24, 48);
+    //text("Quitter", width/2, height/2+24, 48);
   }
 }
 
@@ -163,18 +164,17 @@ void drawGameOver()
 /*                                       UTILITIES                                        */
 /******************************************************************************************/
 
-
-//void text(String t, int x, int y, int d)
-//{
-//  fill(255);
-//  textFont(fonteRemplissage, d);
-//  text(t, x, y);
-//  fill(0);
-//  textFont(fonteContours, d);
-//  text(t, x, y);
-//  noFill();
-//}
-
+void wave()
+{
+  if(!isCalmarDead)
+  {
+    waveCalmar();
+  }
+  else if(!isOwenDead)
+  {
+    waveOwen();
+  }
+}
 
 void gestionDesEnnemis()
 {
@@ -204,7 +204,7 @@ void gestionDesEnnemis()
 }
 
 
-void gestionDesBoss()
+void waveCalmar()
 {
   if(calmar==null){
     calmar = new Calmar(soundMaster);
@@ -214,20 +214,41 @@ void gestionDesBoss()
   {
     calmar.vie--;
   }
-
   if (calmar.vie >= 0)
   {
-    calmar.attackCollision();
     calmar.attack();
+    calmar.attackCollision();  
     calmar.deplacer();
     calmar.afficher();
+  } 
+  else
+  {
+    calmar.afficherDeath();
+    isCalmarDead = calmar.moveDead();
+  }
+}
+
+void waveOwen()
+{
+  if(owen==null){
+    owen = new Owen(soundMaster);
+  }
+
+  if (owen.collision())
+  {
+    owen.vie--;
+  }
+  if (owen.vie >= 0)
+  {
+    owen.attack();
+    owen.attackCollision();  
+    owen.deplacer();
+    owen.afficher();
   } else
   {
-    calmar.moveDead(); 
-    calmar.afficherDeath();
+    owen.afficherDeath();
+    isOwenDead = owen.moveDead(); 
   }
-  
-  
 }
 
 

@@ -6,7 +6,7 @@ class Boss extends NonPlayableObject
   PImage deadBoss = new PImage();
   boolean goToTop=true;
   int vie;
-  PImage attack = new PImage();
+  PImage[] attack = new PImage[5];
   ArrayList<Tir> tirs = new ArrayList<Tir>();
 
   SoundMaster soundMaster;
@@ -36,11 +36,12 @@ class Boss extends NonPlayableObject
   /*                                         MOVE                                           */
   /******************************************************************************************/
 
-  void moveDead()
+  boolean moveDead()
   {
     if(size[1] + pos[1] > 0){
-      pos[1] += 5;  
+      pos[1] += 5;
     }
+    return true;
   }
   
   void deplacer()
@@ -97,7 +98,6 @@ class Boss extends NonPlayableObject
       {
         joueur.tirs.remove(i);        
         soundMaster.playSoundEffect("ennemyHit");
-        joueur.tirs.remove(i);
         joueur.score++;
         return true;
       }
@@ -118,8 +118,8 @@ class Boss extends NonPlayableObject
     
     for (Tir tir : tirs)
     {
-      tir.deplacer();
-      tir.afficher();
+      tir.moveLeft();
+      tir.afficherImage(attack);
     }
      
   }

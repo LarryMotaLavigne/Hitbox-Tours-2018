@@ -23,7 +23,12 @@ class Tir
     pos[0] += 25 * speed;
   }
   
-  void afficher()
+  void moveLeft()
+  {
+   pos[0] -= 25 * speed; 
+  }
+  
+  void afficherLaser()
   {
     //stroke(4, 168, 255);
     stroke(255,0,0);
@@ -32,6 +37,11 @@ class Tir
     stroke(255);
     strokeWeight(1);
     line(pos[0], pos[1], pos[0]+size[1], pos[1]);
+  }
+  
+  void afficherImage(PImage[] image)
+  {
+    image(image[int(frameCount/image.length)%image.length], pos[0], pos[1], size[0], size[1]);
   }
 
 }

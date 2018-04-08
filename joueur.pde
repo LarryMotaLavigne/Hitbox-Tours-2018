@@ -75,7 +75,7 @@ class Joueur extends PlayableObject
     }
     for (Tir tir : tirs)
     {
-      tir.afficher();
+      tir.afficherLaser();
     }
     tint(255, 255, 255);
   }
@@ -118,7 +118,7 @@ class Joueur extends PlayableObject
     for (Tir tir : tirs)
     {
       tir.deplacer();
-      tir.afficher();
+      tir.afficherLaser();
     }
   }
 
