@@ -184,6 +184,8 @@ void drawIntro()
   PImage owen = loadImage("owen.png");
   image(owen, 800, 200);
   text("Richard Owen", 1080, 200);
+  text("Utilise les flèches pour Bouger !", 1111, 20);
+  text("Et la barre Espace pour Tirer !", 1111, 60);
   decor.afficherFiligranes();
 }
 
