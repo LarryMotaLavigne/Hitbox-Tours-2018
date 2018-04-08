@@ -7,7 +7,9 @@ class Joueur extends PlayableObject
   PImage[][] joueur = new PImage[3][2];
   SoundMaster soundMaster;
 
+  // Timer pour les frames d'invulnérabilité
   int timeSinceLastHit = 0;
+  int invicibilityTime = 1000;
 
   Joueur(SoundMaster p_soundMaster)
   {
@@ -129,6 +131,6 @@ class Joueur extends PlayableObject
   }
   
   boolean canBeHit(){
-    return (millis() - timeSinceLastHit) > 2000;
+    return (millis() - timeSinceLastHit) > invicibilityTime;
   }
 }

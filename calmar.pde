@@ -2,7 +2,7 @@ class Calmar extends Boss
 {
   Calmar(SoundMaster p_soundMaster)
   {
-    super(p_soundMaster);
+    super(p_soundMaster, "calmarBossDeath");
     
     for (int i = 0; i < 2; i++) 
     {

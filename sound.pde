@@ -11,7 +11,8 @@ SoundEffect baseLaserShot;
 // SONS MISC
 // ENNEMY
 SoundEffect ennemyHit;
-OneTimeSoundEffect bossDeath;
+OneTimeSoundEffect calmarBossDeath;
+OneTimeSoundEffect owenBossDeath;
 OneTimeSoundEffect ennemyDeath;
 
 // PLAYER
@@ -32,7 +33,8 @@ OneTimeSoundEffect playerDeath;
     // ENNEMY
     ennemyHit = new SoundEffect(minim, "ennemyHit", "/Sound/Misc/Remastered/VolumeAdjusted/EnnemyHitRM.mp3");
     ennemyDeath = new OneTimeSoundEffect(minim, "ennemyDeath", "/Sound/Misc/Remastered/EnnemyDeathRM.mp3");
-    bossDeath = new OneTimeSoundEffect(minim, "bossDeath", "/Sound/Misc/Remastered/VolumeAdjusted/BossDeathRM.mp3");
+    calmarBossDeath = new OneTimeSoundEffect(minim, "bossDeath", "/Sound/Misc/Remastered/VolumeAdjusted/BossDeathRM.mp3");
+    owenBossDeath = new OneTimeSoundEffect(minim, "bossDeath", "/Sound/Misc/Remastered/VolumeAdjusted/BossDeathRM.mp3");
     
     // PLAYER
     playerHit = new SoundEffect(minim, "playerHit", "/Sound/Misc/Remastered/PlayerHitRM.mp3");
@@ -74,8 +76,12 @@ OneTimeSoundEffect playerDeath;
         ennemyDeath.start();
         break;
       
-      case "bossDeath":
-        bossDeath.start();
+      case "calmarBossDeath":
+        calmarBossDeath.start();
+        break;
+        
+      case "owenBossDeath":
+        owenBossDeath.start();
         break;
         
       // PLAYER

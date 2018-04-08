@@ -42,7 +42,7 @@ class Ennemi extends NonPlayableObject
     {
       if (joueur.tirs.get(i).pos[1] >= pos[1] && joueur.tirs.get(i).pos[1] < pos[1]+size[1] && joueur.tirs.get(i).pos[0] > pos[0] && joueur.tirs.get(i).pos[0]+20 < pos[0]+size[0])
       {
-        soundMaster.playSoundEffect("ennemyHit");
+        soundMaster.playSoundEffect("ennemyDeath");
         joueur.tirs.remove(i);
         joueur.score++;
         return true;

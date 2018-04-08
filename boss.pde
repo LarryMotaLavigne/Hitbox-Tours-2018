@@ -9,10 +9,16 @@ class Boss extends NonPlayableObject
   PImage[] attack = new PImage[5];
   ArrayList<Tir> tirs = new ArrayList<Tir>();
 
+  // Timer pour les frames d'invulnérabilité
+  int timeSinceLastHit = 0;
+  int invicibilityTime = 1000;
+
   SoundMaster soundMaster;
+  String deathSoundName;
  
-  Boss(SoundMaster p_soundMaster){
+  Boss(SoundMaster p_soundMaster, String p_deathSoundName){
     soundMaster = p_soundMaster;
+    deathSoundName = p_deathSoundName;
   }
   
   
@@ -30,6 +36,7 @@ class Boss extends NonPlayableObject
   void afficherDeath()
   {
     image(deadBoss,pos[0], pos[1], size[0], size[1]);
+    soundMaster.playSoundEffect(deathSoundName);
   }
  
   /******************************************************************************************/
@@ -92,14 +99,16 @@ class Boss extends NonPlayableObject
     }
     
     // If the boss receive a shot
-    for (int i = 0; i < joueur.tirs.size(); i++)
-    {
-      if (joueur.tirs.get(i).pos[1] >= pos[1] && joueur.tirs.get(i).pos[1] < pos[1]+size[1] && joueur.tirs.get(i).pos[0] > pos[0] && joueur.tirs.get(i).pos[0]+joueur.tirs.get(i).size[0] < pos[0]+size[0])
+    if(canBeHit()){
+      for (int i = 0; i < joueur.tirs.size(); i++)
       {
-        joueur.tirs.remove(i);        
-        soundMaster.playSoundEffect("ennemyHit");
-        joueur.score++;
-        return true;
+        if (joueur.tirs.get(i).pos[1] >= pos[1] && joueur.tirs.get(i).pos[1] < pos[1]+size[1] && joueur.tirs.get(i).pos[0] > pos[0] && joueur.tirs.get(i).pos[0]+joueur.tirs.get(i).size[0] < pos[0]+size[0])
+        {
+          joueur.tirs.remove(i);        
+          soundMaster.playSoundEffect("ennemyHit");
+          joueur.score++;
+          return true;
+        }
       }
     }
     
@@ -145,4 +154,7 @@ class Boss extends NonPlayableObject
     }
   }
   
+  boolean canBeHit(){
+    return (millis() - timeSinceLastHit) > invicibilityTime;
+  }
 }

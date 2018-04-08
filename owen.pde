@@ -2,7 +2,7 @@ class Owen extends Boss
 {
   Owen(SoundMaster p_soundMaster)
   {
-    super(p_soundMaster);
+    super(p_soundMaster, "owenBossDeath");
     
     for (int i = 0; i < 2; i++) 
     {
