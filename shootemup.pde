@@ -1,3 +1,10 @@
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
 // Game Parameters
 boolean pause = false;
 boolean[] touches = new boolean[5];
@@ -21,6 +28,10 @@ enum Scene {
 }
 Scene state=Scene.Menu;
 
+// Music Management
+Minim minim;
+SoundMaster soundMaster;
+
 /******************************************************************************************/
 /*                                       GAME INIT                                        */
 /******************************************************************************************/
@@ -38,6 +49,8 @@ void setup()
   //fonteRemplissage = createFont("data/WIDEAWAKEBLACK.ttf", 128);
   joueur = new Joueur();
   decor = new Decor();
+  minim = new Minim(this);
+  soundMaster = new SoundMaster(minim);
 }
 
 /******************************************************************************************/
@@ -62,6 +75,9 @@ void draw()
 
 void drawMenu()
 {
+  // Music de l'intro
+  soundMaster.playIntro();
+  
   text(mouseX+"    "+mouseY, mouseX, mouseY);
   background(204);
   fill(255, 255, 255);
@@ -80,11 +96,12 @@ void drawMenu()
 
 void drawGame()
 {
-
+  // Music du niveau
+  soundMaster.playLevelMusic();
+  
   if (focused && !pause)
   {
     surface.setTitle(str(frameRate));
-
     decor.afficher();
     joueur.afficher();
     gestionDesEnnemis();
