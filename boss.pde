@@ -4,12 +4,25 @@ class Boss extends NonPlayableObject
   int[] pos = { width };
   int[] size = {300,300};
   PImage[] boss = new PImage[2];
+  PImage deadBoss = new PImage();
   boolean goToTop=true;
   int vie;
   
   void afficher()
   {
     image(boss[(frameCount/5)%2],pos[0], pos[1], size[0], size[1]);
+  }
+  
+  void afficherDeath()
+  {
+    image(deadBoss,pos[0], pos[1], size[0], size[1]);
+  }
+  
+  void moveDead()
+  {
+    if(size[1] + pos[1] > 0){
+      pos[1] += 5;  
+    }
   }
   
   void deplacer()
@@ -43,8 +56,7 @@ class Boss extends NonPlayableObject
           pos[1] -= 5;
         }
       }
-    }
-  }
+    }   }
   
   boolean collision()
   {
@@ -74,8 +86,9 @@ class Calmar extends Boss
   {
     for (int i = 0; i < 2; i++) 
     {
-      boss[i] = loadImage("calmar img"+i+".png");
+      boss[i] = loadImage("boss/calmar img"+i+".png");
     }
+    deadBoss = loadImage("boss/calmar-dead.png");
     
     pos = append(pos, height/2);
     vie = 10;

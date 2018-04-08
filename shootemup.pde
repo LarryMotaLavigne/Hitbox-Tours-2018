@@ -198,6 +198,11 @@ void gestionDesBoss()
     calmar.deplacer();
     calmar.afficher();
   }
+  else
+  {
+    calmar.moveDead(); 
+    calmar.afficherDeath();
+  }
 }
 
 
