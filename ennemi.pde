@@ -1,6 +1,7 @@
 class Ennemi extends NonPlayableObject
 {
   int[] pos = { width };
+  int[] size = {168, 90};
   PImage[] ennemi = new PImage[2];
   Ennemi()
   {
@@ -19,19 +20,21 @@ class Ennemi extends NonPlayableObject
   
   void afficher()
   {
-    image(ennemi[(frameCount/5)%2],pos[0], pos[1], 168, 90);
+    image(ennemi[(frameCount/5)%2],pos[0], pos[1], size[0], size[1]);
   }
-  
+
+
   boolean collision()
   {
-    if ((joueur.pos[0] > pos[0] && joueur.pos[0] < pos[0]+110 || joueur.pos[0]+152 > pos[0] && joueur.pos[0]+152 < pos[0]+110) && (pos[1] > joueur.pos[1] && pos[1] < joueur.pos[1]+120 || pos[1]+90 > joueur.pos[1] && pos[1]+90 < joueur.pos[1]+120)) // joueur.pos[1] >= pos[1] && joueur.pos[1] < pos[1]+120 || joueur.pos[0] > pos[0] || joueur.pos[0]+152 < 152)
+    if(joueur.pos[0] < pos[0]+size[0] && joueur.pos[0]+joueur.size[0] > pos[0] && joueur.pos[1] < pos[1]+size[1] && joueur.pos[1]+joueur.size[1] > pos[1])   
     {
       joueur.degat();
       return true;
     }
+    
     for (int i = 0; i < joueur.tirs.size(); i++)
     {
-      if (joueur.tirs.get(i).pos[1] >= pos[1] && joueur.tirs.get(i).pos[1] < pos[1]+90 && joueur.tirs.get(i).pos[0] > pos[0] && joueur.tirs.get(i).pos[0]+20 < pos[0]+110)
+      if (joueur.tirs.get(i).pos[1] >= pos[1] && joueur.tirs.get(i).pos[1] < pos[1]+size[1] && joueur.tirs.get(i).pos[0] > pos[0] && joueur.tirs.get(i).pos[0]+20 < pos[0]+size[0])
       {
         joueur.tirs.remove(i);
         joueur.score++;
@@ -40,5 +43,6 @@ class Ennemi extends NonPlayableObject
     }
     return false;
   }
+  
   
 }

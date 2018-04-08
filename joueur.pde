@@ -1,12 +1,16 @@
 class Joueur extends PlayableObject
 {
   int[] pos = { 100, 360 };
+  int[] size = {280, 280};
+  
   PImage[] joueur = new PImage[2], coeur = new PImage[8];
   
   Joueur()
   {
-    for (int i = 0; i < 2; i++) 
+    for (int i = 0; i < 2; i++)
+    {
       joueur[i] = loadImage("sous-marin img"+i+".png");
+    }
     for (int i = 1; i < 9; i++)
     {
       coeur[i-1] = loadImage("data/joueur/Health/frame-"+i+".png");
@@ -42,12 +46,9 @@ class Joueur extends PlayableObject
       tint(0, 255, 0);
       degat++;
     }
-    //stroke(4,168,255);
-    //rect(pos[0], pos[1],152,120);
-    pos[0] += (int(touches[3])-int(touches[1]))*vitesse;
-    pos[1] += (int(touches[2])-int(touches[0]))*vitesse;
-    image(joueur[(frameCount/5)%2],pos[0], pos[1], 280, 280);
 
+    image(joueur[(frameCount/5)%2],pos[0], pos[1], size[0], size[1]);
+ 
     tint(255, 255, 255);
     for (int i = 0; i < tirs.size(); i++)
     {
@@ -58,7 +59,6 @@ class Joueur extends PlayableObject
       tir.afficher();
     }
     tint(255, 255, 255);
-    //println(tirs.size());
   }
   
   void degat()
@@ -73,9 +73,37 @@ class Joueur extends PlayableObject
     degat = -15;
   }
   
-
+    void action(boolean[] touches)
+  {
+    if (touches[0] && pos[1] > 0) pos[1] -= 10; 
+    if (touches[1] && pos[0] > 0) pos[0] -= 10; 
+    if (touches[2] && pos[1] < height-size[1]) pos[1] += 10; 
+    if (touches[3] && pos[0] < width-size[0]) pos[0] += 10; 
+    if (touches[4])
+    {
+      if (frequenceTirs%12 == 0)
+      {
+        tirer();
+      }
+      frequenceTirs++;
+    } 
+    else
+    {
+      frequenceTirs = 0;
+    }
+    
+    
+    for (Tir tir : tirs)
+    {
+      tir.deplacer();
+      tir.afficher();
+    }
+  }
   
-  
+  void tirer()
+  {
+    tirs.add(new Tir(pos[0], pos[1]));
+  }
   
 
 }
