@@ -1,3 +1,10 @@
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
 // Game Parameters
 boolean pause = false;
 boolean[] touches = new boolean[5];
@@ -9,17 +16,21 @@ PFont police;
 //PFont fonteContours, fonteRemplissage;
 
 // Character Management
-//Boss boss;
+Boss calmar;
+Boss owen;
 Decor decor;
 Joueur joueur;
 ArrayList<Ennemi> ennemis = new ArrayList<Ennemi>();
-
 
 // Scene Management
 enum Scene {
   Menu, Game, GameOver
 }
 Scene state=Scene.Menu;
+
+// Music Management
+Minim minim;
+SoundMaster soundMaster;
 
 /******************************************************************************************/
 /*                                       GAME INIT                                        */
@@ -42,7 +53,13 @@ void setup()
   textFont(police);
   //fonteContours = createFont("data/WIDEAWAKE.TTF", 128);
   //fonteRemplissage = createFont("data/WIDEAWAKEBLACK.ttf", 128);
-  joueur = new Joueur();
+  
+  // Musiques et Sons
+  minim = new Minim(this);
+  soundMaster = new SoundMaster(minim);
+
+  
+  joueur = new Joueur(soundMaster);
   decor = new Decor();
 }
 
@@ -68,6 +85,9 @@ void draw()
 
 void drawMenu()
 {
+  // Music de l'intro
+  soundMaster.playIntro();
+  
   text(mouseX+"    "+mouseY, mouseX, mouseY);
   background(204);
   fill(255, 255, 255);
@@ -97,14 +117,17 @@ void drawMenu()
 
 void drawGame()
 {
-
+  // Music du niveau
+  soundMaster.playLevelMusic();
+  
   if (focused && !pause)
   {
     surface.setTitle(str(frameRate));
 
     decor.afficherFond();
     joueur.afficher();
-    gestionDesEnnemis();
+    gestionDesBoss();
+    //gestionDesEnnemis();
     joueur.action(touches);
     decor.afficherFiligranes();
   } else if (moche++ == 0)
@@ -175,6 +198,30 @@ void gestionDesEnnemis()
   {
     ennemi.deplacer();
     ennemi.afficher();
+  }
+}
+
+
+void gestionDesBoss()
+{
+  if(calmar==null){
+    calmar = new Calmar();
+  }
+  
+  if(calmar.collision())
+  {
+    calmar.vie--;
+  }
+  
+  if(calmar.vie >= 0)
+  {
+    calmar.deplacer();
+    calmar.afficher();
+  }
+  else
+  {
+    calmar.moveDead(); 
+    calmar.afficherDeath();
   }
 }
 

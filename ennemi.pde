@@ -1,7 +1,7 @@
 class Ennemi extends NonPlayableObject
 {
   int[] pos = { width };
-  int[] size = {168, 90};
+  int[] size = {150, 109};
   PImage[] ennemi = new PImage[2];
   Ennemi()
   {
@@ -22,8 +22,8 @@ class Ennemi extends NonPlayableObject
   {
     image(ennemi[(frameCount/5)%2],pos[0], pos[1], size[0], size[1]);
   }
-
-
+  
+  
   boolean collision()
   {
     if(joueur.pos[0] < pos[0]+size[0] && joueur.pos[0]+joueur.size[0] > pos[0] && joueur.pos[1] < pos[1]+size[1] && joueur.pos[1]+joueur.size[1] > pos[1])   
@@ -41,8 +41,6 @@ class Ennemi extends NonPlayableObject
         return true;
       }
     }
-    return false;
-  }
-  
-  
+    return false; 
+  } 
 }
