@@ -27,7 +27,7 @@ boolean isFirstWaveDead = false;
 long firstWaveMilli = 0;
 boolean isSecondWaveDead = false;
 long secondWaveMilli = 0;
-int waveTime = 10; // in seconds
+int waveTime = 15; // in seconds
 
 // Scene Management
 enum Scene {
