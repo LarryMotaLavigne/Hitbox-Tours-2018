@@ -1,7 +1,7 @@
 class Joueur extends PlayableObject
 {
   int[] pos = { 100, 360 };
-  int[] size = {245, 169};
+  int[] size = {169, 169};
 
   PImage[] coeur = new PImage[8];
   PImage[][] joueur = new PImage[3][2];

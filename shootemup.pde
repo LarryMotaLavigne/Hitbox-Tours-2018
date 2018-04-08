@@ -44,6 +44,7 @@ SoundMaster soundMaster;
 /******************************************************************************************/
 void setup()
 {
+  surface.setTitle("Darwin's Quest : A Bad Owen");
   //surface.setLocation(200,200);
   size(1280, 720, P2D);
   noSmooth();
@@ -101,8 +102,6 @@ void drawMenu()
 {
   // Music de l'intro
   soundMaster.playIntro();
-
-  text(mouseX+"    "+mouseY, mouseX, mouseY);
   decor.afficherMenu();
   fill(255, 255, 255);
   rect(width/2 - 60, height/2 - 85, 120, 30, 3);
@@ -193,7 +192,6 @@ void drawGame()
 {
   if (focused && !pause)
   {
-    surface.setTitle(str(frameRate));
 
     decor.afficherFond();
     joueur.afficher();
@@ -365,9 +363,10 @@ void keyPressed()
   if (key == '-') joueur.degat();
   if (key == '+') joueur.soin();
   if (keyCode == TAB) surface.setLocation(275, 150);
-  if ((keyCode == ENTER || key == ' ') && state==Scene.Intro) state = Scene.Game;
-  if ((keyCode == ENTER || key == ' ') && state==Scene.Win) state = Scene.Menu;
-  if ((keyCode == ENTER || key == ' ') && state==Scene.Menu) state = Scene.Game;
+  if ((key == ' ' || keyCode == ENTER) && state==Scene.Menu) state = Scene.Intro;
+  if ((key == ' ' || keyCode == ENTER) && state==Scene.Intro) state = Scene.Game;
+  if ((key == ' ' || keyCode == ENTER) && state==Scene.Win) state = Scene.Menu;
+  if ((key == ' ' || keyCode == ENTER) && state==Scene.GameOver) state = Scene.Game;
   if (key == ESC)
   {
     pause = !pause;
