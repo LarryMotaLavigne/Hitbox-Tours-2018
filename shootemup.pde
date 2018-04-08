@@ -31,7 +31,7 @@ int waveTime = 10; // in seconds
 
 // Scene Management
 enum Scene {
-  Menu, Game, GameOver
+  Menu, Game, GameOver, Intro
 }
 Scene state=Scene.Menu;
 
@@ -85,6 +85,9 @@ void draw()
   case Game:
     drawGame();
     break;
+  case Intro:
+    drawIntro();
+    break;
   case GameOver:
     drawGameOver();
     break;
@@ -124,6 +127,33 @@ void drawMenu()
   decor.afficherFiligranes();
 }
 
+void drawIntro()
+{
+  soundMaster.playIntro();
+  decor.afficherMenu();
+  textAlign(CENTER);
+  textSize(48);
+  rectMode(CENTER);
+  stroke(0);
+  fill(255, 200);
+  rect(width/2, height-340, 600, 800, 3);
+  fill(0);
+  noStroke();
+  textAlign(CENTER, CENTER);
+  textLeading(40);
+  text(citations[IDCitation], width/2, height-370);
+  rectMode(CORNER);
+  text("Appuyez sur Entrer", width/2, height-30);
+  PImage darwin = loadImage("darwin.png");
+  image(darwin, -140, -30);
+  text("Charles Darwin", 170, 600);
+  PImage owen = loadImage("owen.png");
+  image(owen, 800, 200);
+  text("Owen Wilson", 1080, 200);
+  decor.afficherFiligranes();
+}
+
+
 void drawGame()
 {
   // Music du niveau
@@ -149,7 +179,7 @@ void drawGame()
 
 void drawGameOver()
 {
-  background(204);
+  decor.afficherMenu();
   fill(255, 255, 255);
   rect(width/2 - 60, height/2 - 85, 120, 30, 3);
   fill(255, 255, 255);
@@ -299,6 +329,7 @@ void keyPressed()
   if (key == '-') joueur.degat();
   if (key == '+') joueur.soin();
   if (keyCode == TAB) surface.setLocation(275, 150);
+  if (keyCode == ENTER && state==Scene.Intro) state = Scene.Game;
   if (key == ESC)
   {
     pause = !pause;
@@ -322,7 +353,7 @@ void mousePressed()
   {
     if ((mouseX>=(width/2-60) && mouseX<=(width/2+60)) && (mouseY>=(height/2-85) && mouseY<=(height/2-55)))
     {
-      state = Scene.Game;
+      state = Scene.Intro;
     } else if ((mouseX>=(width/2-60) && mouseX<=(width/2+60)) && (mouseY>=(height/2+15) && mouseY<=(height/2+45)))
     {
       exit();
