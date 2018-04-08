@@ -176,7 +176,7 @@ void drawIntro()
   noStroke();
   textAlign(CENTER, CENTER);
   textLeading(40);
-  text(citations[IDCitation], width/2, height-370);
+  text("Charles Darwin a découvert que l’Homme a un ancêtre\n en commun avec les primates.\n\n Tellement content de sa découverte\n il décide de publier un livre de cette théorie.\n Il en parle à Richard Owen,\n qui n’est pas d’accord avec lui.\n Ce dernier décide de lui prendre les notes\n de sa découverte afin de l'empêcher de publier son livre :\n 'L'origine des espèces'", width/2, height-370);
   rectMode(CORNER);
   text("Appuyez sur Entrer", width/2, height-30);
   PImage darwin = loadImage("darwin.png");
@@ -184,7 +184,7 @@ void drawIntro()
   text("Charles Darwin", 170, 600);
   PImage owen = loadImage("owen.png");
   image(owen, 800, 200);
-  text("Owen Wilson", 1080, 200);
+  text("Richard Owen", 1080, 200);
   decor.afficherFiligranes();
 }
 
@@ -364,8 +364,9 @@ void keyPressed()
   if (key == '-') joueur.degat();
   if (key == '+') joueur.soin();
   if (keyCode == TAB) surface.setLocation(275, 150);
-  if (keyCode == ENTER && state==Scene.Intro) state = Scene.Game;
-  if (keyCode == ENTER && state==Scene.Win) state = Scene.Menu;
+  if ((keyCode == ENTER || key == ' ') && state==Scene.Intro) state = Scene.Game;
+  if ((keyCode == ENTER || key == ' ') && state==Scene.Win) state = Scene.Menu;
+  if ((keyCode == ENTER || key == ' ') && state==Scene.Menu) state = Scene.Game;
   if (key == ESC)
   {
     pause = !pause;
