@@ -28,7 +28,7 @@ boolean isFirstWaveDead = false;
 long firstWaveMilli = 0;
 boolean isSecondWaveDead = false;
 long secondWaveMilli = 0;
-int waveTime = 10; // in seconds
+int waveTime = 15; // in seconds
 
 // Scene Management
 enum Scene {
@@ -186,15 +186,17 @@ void drawIntro()
   noStroke();
   textAlign(CENTER, CENTER);
   textLeading(40);
-  text("Charles Darwin a découvert que l’Homme a un ancêtre\n en commun avec les primates.\n\n Tellement content de sa découverte\n il décide de publier un livre de cette théorie.\n Il en parle à Richard Owen,\n qui n’est pas d’accord avec lui.\n Ce dernier décide de lui prendre les notes\n de sa découverte afin de l'empêcher de publier son livre :\n 'L'origine des espèces'", width/2, height-370);
+  text("Charles Darwin a découvert que l’Homme avait \n un ancêtre en commun avec les primates!\n\n Tellement content de sa découverte\n il décide de publier un livre de cette théorie.\n Il en parle à son rival\n 'Sir Richard Owen'\n qui n’est pas d’accord avec lui.\n Ce dernier décide de prendre les notes\n de sa découverte afin de l'empêcher\n de publier son fameux livre :\n 'L'origine des espèces'", width/2, height-370);
   rectMode(CORNER);
-  text("Appuyez sur Entrer", width/2, height-30);
+  text("Appuyez sur 'Espace' pour aider Darwin !", width/2, height-60);
   PImage darwin = loadImage("darwin.png");
   image(darwin, -140, -30);
   text("Charles Darwin", 170, 600);
   PImage owen = loadImage("owen.png");
   image(owen, 800, 200);
   text("Richard Owen", 1080, 200);
+  text("Utilise les flèches pour Bouger !", 1111, 20);
+  text("Et la barre Espace pour Tirer !", 1111, 60);
   decor.afficherFiligranes();
 }
 
@@ -203,7 +205,6 @@ void drawGame()
 {
   if (focused && !pause)
   {
-
     decor.afficherFond();
     joueur.afficher();
     wave();
@@ -328,7 +329,7 @@ void waveCalmar()
   if (calmar.vie >= 0)
   {
     calmar.attack();
-    calmar.attackCollision();  
+    calmar.attackCollision();
     calmar.deplacer();
     calmar.afficher();
   } 
@@ -353,7 +354,7 @@ void waveOwen()
   if (owen.vie >= 0)
   {
     owen.attack();
-    owen.attackCollision();  
+    owen.attackCollision();
     owen.deplacer();
     owen.afficher();
   } else
