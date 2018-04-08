@@ -12,6 +12,7 @@ class Boss extends NonPlayableObject
   // Timer pour les frames d'invulnérabilité
   int timeSinceLastHit = 0;
   int invicibilityTime = 1000;
+  boolean justBeenHit = false;
 
   SoundMaster soundMaster;
   String deathSoundName;
@@ -31,14 +32,29 @@ class Boss extends NonPlayableObject
 
   void afficher()
   {
-    tint(255, 255, 255);
+    
+    if(!canBeHit() && (justBeenHit || millis() %10 == 0)){
+      tint(0,0);
+      justBeenHit = false;
+    }
+    else{
+      tint(255,255,255);
+    }
+    
     image(boss[(frameCount/5)%2],pos[0], pos[1], size[0], size[1]);
+    
+    tint(255,255,255);
   }
   
   void afficherDeath()
   {
     image(deadBoss,pos[0], pos[1], size[0], size[1]);
     soundMaster.playSoundEffect(deathSoundName);
+  }
+  
+  void clignoter(){
+    tint(0,0);
+    image(boss[(frameCount/5)%2],pos[0], pos[1], size[0], size[1]);
   }
  
   /******************************************************************************************/
@@ -101,16 +117,17 @@ class Boss extends NonPlayableObject
     }
     
     // If the boss receive a shot      
-      for (int i = 0; i < joueur.tirs.size(); i++)
+    for (int i = 0; i < joueur.tirs.size(); i++)
+    {
+      if (joueur.tirs.get(i).pos[1] >= pos[1] && joueur.tirs.get(i).pos[1] < pos[1]+size[1] && joueur.tirs.get(i).pos[0] > pos[0] && joueur.tirs.get(i).pos[0]+joueur.tirs.get(i).size[0] < pos[0]+size[0])
       {
-        if (joueur.tirs.get(i).pos[1] >= pos[1] && joueur.tirs.get(i).pos[1] < pos[1]+size[1] && joueur.tirs.get(i).pos[0] > pos[0] && joueur.tirs.get(i).pos[0]+joueur.tirs.get(i).size[0] < pos[0]+size[0])
-        {
-          if(canBeHit()){
-            timeSinceLastHit = millis();
-            joueur.tirs.remove(i);        
-            soundMaster.playSoundEffect("ennemyHit");
-            joueur.score++;
-            return true;
+        if(canBeHit()){
+          timeSinceLastHit = millis();
+          justBeenHit = true;
+          joueur.tirs.remove(i);        
+          soundMaster.playSoundEffect("ennemyHit");
+          joueur.score++;
+          return true;
         }
       }
     }
