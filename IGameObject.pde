@@ -20,10 +20,4 @@ abstract class PlayableObject implements IGameObject
   ArrayList<Tir> tirs = new ArrayList<Tir>();
   
   abstract void tirer();
-  
-  void tirer()
-  {
-    tirs.add(new Tir(pos[0], pos[1]));
-  }
-
 }
