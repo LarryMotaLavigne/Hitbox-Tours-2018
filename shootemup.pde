@@ -47,10 +47,14 @@ void setup()
   textFont(police);
   //fonteContours = createFont("data/WIDEAWAKE.TTF", 128);
   //fonteRemplissage = createFont("data/WIDEAWAKEBLACK.ttf", 128);
-  joueur = new Joueur();
-  decor = new Decor();
+  
+  // Musiques et Sons
   minim = new Minim(this);
   soundMaster = new SoundMaster(minim);
+
+  
+  joueur = new Joueur(soundMaster);
+  decor = new Decor();
 }
 
 /******************************************************************************************/

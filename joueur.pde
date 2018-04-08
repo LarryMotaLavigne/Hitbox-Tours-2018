@@ -4,8 +4,9 @@ class Joueur extends PlayableObject
   int[] size = {245, 169};
   
   PImage[] joueur = new PImage[2], coeur = new PImage[8];
+  SoundMaster soundMaster;
   
-  Joueur()
+  Joueur(SoundMaster p_soundMaster)
   {
     for (int i = 0; i < 2; i++)
     {
@@ -15,6 +16,8 @@ class Joueur extends PlayableObject
     {
       coeur[i-1] = loadImage("data/joueur/Health/frame-"+i+".png");
     }
+    
+    soundMaster = p_soundMaster;
   }
   
   void resetPlayer()
@@ -103,6 +106,7 @@ class Joueur extends PlayableObject
   void tirer()
   {
     tirs.add(new Tir(pos[0], pos[1]));
+    soundMaster.playSoundEffect("baseLaserShot");
   }
   
 
