@@ -23,6 +23,11 @@ Joueur joueur;
 ArrayList<Ennemi> ennemis = new ArrayList<Ennemi>();
 boolean isOwenDead = false;
 boolean isCalmarDead = false;
+boolean isFirstWaveDead = false;
+long firstWaveMilli = 0;
+boolean isSecondWaveDead = false;
+long secondWaveMilli = 0;
+int waveTime = 10; // in seconds
 
 // Scene Management
 enum Scene {
@@ -165,24 +170,50 @@ void drawGameOver()
 /******************************************************************************************/
 
 void wave()
-{
-  if(!isCalmarDead)
+{  
+  if(!isFirstWaveDead)
+  {
+    if(firstWaveMilli==0)
+    {
+      firstWaveMilli = millis();
+    }
+    waveEnnemies(waveTime, firstWaveMilli);
+  }
+  else if(!isCalmarDead)
   {
     waveCalmar();
+  }
+  else if(!isSecondWaveDead)
+  {
+    if(secondWaveMilli==0)
+    {
+      secondWaveMilli = millis();
+    }
+    waveEnnemies(waveTime, secondWaveMilli); 
   }
   else if(!isOwenDead)
   {
     waveOwen();
   }
+  else{
+    state = Scene.GameOver; 
+  }
 }
 
-void gestionDesEnnemis()
+void waveEnnemies(int seconds, long beginTime)
 {
+  if(millis()-beginTime > seconds * 1000)
+  {
+    if(!isFirstWaveDead)
+      isFirstWaveDead = true;
+    else if(!isSecondWaveDead)
+      isSecondWaveDead = true;
+  }
+  
   if (int(random(100)) == 0)
   {
     ennemis.add(new Ennemi(soundMaster));
     ennemisGeneres++;
-    //surface.setTitle("Ennemis : "+ennemis.size());
   }
   for (int i = 0; i < ennemis.size(); i++)
   {
