@@ -5,8 +5,8 @@ class Tir
   
   Tir(int x, int y)
   {
-    pos[0] = x + 170;
-    pos[1] = y + 220;
+    pos[0] = x + 90;
+    pos[1] = y + 100;
   }
   
   void deplacer()

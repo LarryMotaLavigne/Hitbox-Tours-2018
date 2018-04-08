@@ -1,7 +1,7 @@
 class Ennemi extends NonPlayableObject
 {
   int[] pos = { width };
-  int[] size = {168, 90};
+  int[] size = {150, 109};
   PImage[] ennemi = new PImage[2];
   Ennemi()
   {
