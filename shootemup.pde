@@ -16,11 +16,11 @@ PFont police;
 //PFont fonteContours, fonteRemplissage;
 
 // Character Management
-//Boss boss;
+Boss calmar;
+Boss owen;
 Decor decor;
 Joueur joueur;
 ArrayList<Ennemi> ennemis = new ArrayList<Ennemi>();
-
 
 // Scene Management
 enum Scene {
@@ -104,7 +104,8 @@ void drawGame()
     surface.setTitle(str(frameRate));
     decor.afficher();
     joueur.afficher();
-    gestionDesEnnemis();
+    gestionDesBoss();
+    //gestionDesEnnemis();
     joueur.action(touches);
   } else if (moche++ == 0)
   {
@@ -173,6 +174,25 @@ void gestionDesEnnemis()
   {
     ennemi.deplacer();
     ennemi.afficher();
+  }
+}
+
+
+void gestionDesBoss()
+{
+  if(calmar==null){
+    calmar = new Calmar();
+  }
+  
+  if(calmar.collision())
+  {
+    calmar.vie--;
+  }
+  
+  if(calmar.vie >= 0)
+  {
+    calmar.deplacer();
+    calmar.afficher();
   }
 }
 
