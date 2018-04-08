@@ -31,7 +31,7 @@ int waveTime = 10; // in seconds
 
 // Scene Management
 enum Scene {
-  Menu, Game, GameOver, Intro
+  Menu, Game, GameOver, Intro, Win
 }
 Scene state=Scene.Menu;
 
@@ -91,6 +91,9 @@ void draw()
   case GameOver:
     drawGameOver();
     break;
+  case Win:
+    drawWin();
+    break;
   }
 }
 
@@ -126,6 +129,38 @@ void drawMenu()
   rectMode(CORNER);
   decor.afficherFiligranes();
 }
+
+void drawWin()
+{
+  // Music de l'intro
+  soundMaster.playIntro();
+
+  decor.afficherMenu();
+  textAlign(CENTER);
+  textSize(128);
+  text("Darwin's Quest", width/2, 300);
+  textSize(80);
+  text("A Bad Owen", width/2, 400);
+  textSize(68);
+  text("Féliciations ! Vous avez finis la démo de :", width/2, 150);
+  textSize(38);
+  text("Réalisation : Valentine, Clément, Florian et Larry.", width/2, 680);
+  textSize(28);
+  text("Avec le soutien de David Goodenough", width/2, 710);
+  textSize(48);
+  rectMode(CENTER);
+  stroke(0);
+  fill(255, 200);
+  rect(width/2, height-140, 600, 140, 3);
+  fill(0);
+  noStroke();
+  textAlign(CENTER, CENTER);
+  textLeading(40);
+  text(citations[IDCitation], width/2, height-150);
+  rectMode(CORNER);
+  decor.afficherFiligranes();
+}
+
 
 void drawIntro()
 {
@@ -226,7 +261,7 @@ void wave()
     waveOwen();
   }
   else{
-    state = Scene.GameOver; 
+    state = Scene.Win; 
   }
 }
 
@@ -330,6 +365,7 @@ void keyPressed()
   if (key == '+') joueur.soin();
   if (keyCode == TAB) surface.setLocation(275, 150);
   if (keyCode == ENTER && state==Scene.Intro) state = Scene.Game;
+  if (keyCode == ENTER && state==Scene.Win) state = Scene.Menu;
   if (key == ESC)
   {
     pause = !pause;
