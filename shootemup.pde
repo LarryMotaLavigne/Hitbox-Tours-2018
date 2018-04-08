@@ -179,7 +179,7 @@ void gestionDesEnnemis()
 {
   if (int(random(100)) == 0)
   {
-    ennemis.add(new Ennemi());
+    ennemis.add(new Ennemi(soundMaster));
     ennemisGeneres++;
     //surface.setTitle("Ennemis : "+ennemis.size());
   }
@@ -205,8 +205,8 @@ void gestionDesEnnemis()
 
 void gestionDesBoss()
 {
-  if (calmar==null) {
-    calmar = new Calmar();
+  if(calmar==null){
+    calmar = new Calmar(soundMaster);
   }
 
   if (calmar.collision())

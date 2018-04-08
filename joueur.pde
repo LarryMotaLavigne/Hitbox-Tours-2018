@@ -25,9 +25,6 @@ class Joueur extends PlayableObject
     frequenceTirs = 0;
     vie = 3;
     degat = 0;
-    //pos = [100, 360];
-    //joueur = new PImage[4]; coeur = new PImage[8];
-    //tirs = new ArrayList<Tir>();
   }
     
   void afficher()
@@ -76,12 +73,12 @@ class Joueur extends PlayableObject
     degat = -15;
   }
   
-    void action(boolean[] touches)
+  void action(boolean[] touches)
   {
-    if (touches[0] && pos[1] > 0) pos[1] -= 10; 
-    if (touches[1] && pos[0] > 0) pos[0] -= 10; 
-    if (touches[2] && pos[1] < height-size[1]) pos[1] += 10; 
-    if (touches[3] && pos[0] < width-size[0]) pos[0] += 10; 
+    if (touches[0] && pos[1] > 0) pos[1] -= 10 * speed; 
+    if (touches[1] && pos[0] > 0) pos[0] -= 10 * speed; 
+    if (touches[2] && pos[1] < height-size[1]) pos[1] += 10 * speed; 
+    if (touches[3] && pos[0] < width-size[0]) pos[0] += 10 * speed; 
     if (touches[4])
     {
       if (frequenceTirs%12 == 0)

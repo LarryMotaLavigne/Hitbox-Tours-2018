@@ -1,17 +1,28 @@
 class SoundMaster {
 Minim minim;
 
+// MUSIQUES
 Music introMusic;
 Music musicLevel_1;
 
+// SONS TIRS
 SoundEffect baseShotLaser;
+
+// SONS MISC
+SoundEffect ennemyHit;
 
   SoundMaster(Minim p_minim){
     minim = p_minim;
+    
+    // MUSIQUE
     introMusic = new Music(minim, "intro", "/Sound/Music/Remastered/MenuIntroRM.mp3");
     musicLevel_1 = new Music(minim, "level1", "/Sound/Music/Remastered/FirstMusicRadioFM.mp3");
     
+    // TIRS
     baseShotLaser = new SoundEffect(minim, "baseShot", "/Sound/Shoot/Remastered/BaseLaserShotRM.mp3");
+    
+    // MISC
+    ennemyHit = new SoundEffect(minim, "ennemyHit", "/Sound/Misc/Remastered/EnnemyHitRM.mp3");
   }
 
   void playIntro(){
@@ -36,6 +47,9 @@ SoundEffect baseShotLaser;
     switch(effectName){
       case "baseLaserShot":
         baseShotLaser.start();
+      
+      case "ennemyHit":
+        ennemyHit.start();
     }
   }
 }

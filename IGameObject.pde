@@ -14,6 +14,7 @@ abstract class PlayableObject implements IGameObject
   int frequenceTirs = 0;
   int vie = 3;
   int degat = 0;
+  int speed = 1;
   int score;
   int[] pos;
   int[] size;

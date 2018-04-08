@@ -1,12 +1,17 @@
 class Boss extends NonPlayableObject
 {
-  
   int[] pos = { width };
   int[] size = {300,300};
   PImage[] boss = new PImage[2];
   PImage deadBoss = new PImage();
   boolean goToTop=true;
   int vie;
+ 
+  SoundMaster soundMaster;
+ 
+  Boss(SoundMaster p_soundMaster){
+    soundMaster = p_soundMaster;
+  }
   
   void afficher()
   {
@@ -76,35 +81,5 @@ class Boss extends NonPlayableObject
       }
     }
     return false; 
-  }
-}
-
-
-class Calmar extends Boss
-{
-  Calmar()
-  {
-    for (int i = 0; i < 2; i++) 
-    {
-      boss[i] = loadImage("boss/calmar img"+i+".png");
-    }
-    deadBoss = loadImage("boss/calmar-dead.png");
-    
-    pos = append(pos, height/2);
-    vie = 10;
-  }
-}
-
-
-class Owen extends Boss
-{
-  Owen()
-  {
-    for (int i = 0; i < 2; i++) 
-    {
-      boss[i] = loadImage("owen img"+i+".png");
-    }
-    
-    pos = append(pos, height/2);  
   }
 }
