@@ -2,31 +2,35 @@ class Joueur extends PlayableObject
 {
   int[] pos = { 100, 360 };
   int[] size = {245, 169};
-  
-  PImage[] joueur = new PImage[2], coeur = new PImage[8];
+
+  PImage[] coeur = new PImage[8];
+  PImage[][] joueur = new PImage[3][2];
   SoundMaster soundMaster;
-  
+
   Joueur(SoundMaster p_soundMaster)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
     {
-      joueur[i] = loadImage("sous-marin img"+i+".png");
+      for (int j = 0; j < 2; j++)
+      {
+        joueur[i][j] = loadImage("sous-marin img"+i+""+j+".png");
+      }
     }
     for (int i = 1; i < 9; i++)
     {
       coeur[i-1] = loadImage("data/joueur/Health/frame-"+i+".png");
     }
-    
+
     soundMaster = p_soundMaster;
   }
-  
+
   void resetPlayer()
   {
     frequenceTirs = 0;
     vie = 3;
     degat = 0;
   }
-    
+
   void afficher()
   {
     for (int i = 0; i < vie; i++)
@@ -46,9 +50,20 @@ class Joueur extends PlayableObject
       tint(0, 255, 0);
       degat++;
     }
+    
+    if (vie <= 0)
+    {
+      image(joueur[2][(frameCount/5)%2], pos[0], pos[1], size[0], size[1]);
+    }
+    else if (degat > 0)
+    {
+      image(joueur[1][(frameCount/5)%2], pos[0], pos[1], size[0], size[1]);
+    }
+    else
+    {
+      image(joueur[0][(frameCount/5)%2], pos[0], pos[1], size[0], size[1]);
+    }
 
-    image(joueur[(frameCount/5)%2],pos[0], pos[1], size[0], size[1]);
- 
     tint(255, 255, 255);
     for (int i = 0; i < tirs.size(); i++)
     {
@@ -60,19 +75,19 @@ class Joueur extends PlayableObject
     }
     tint(255, 255, 255);
   }
-  
+
   void degat()
   {
     vie --;
     degat = 15;
   }
-  
+
   void soin()
   {
     vie ++;
     degat = -15;
   }
-  
+
   void action(boolean[] touches)
   {
     if (touches[0] && pos[1] > 0) pos[1] -= 10 * speed; 
@@ -86,25 +101,22 @@ class Joueur extends PlayableObject
         tirer();
       }
       frequenceTirs++;
-    } 
-    else
+    } else
     {
       frequenceTirs = 0;
     }
-    
-    
+
+
     for (Tir tir : tirs)
     {
       tir.deplacer();
       tir.afficher();
     }
   }
-  
+
   void tirer()
   {
     tirs.add(new Tir(pos[0], pos[1]));
     soundMaster.playSoundEffect("baseLaserShot");
   }
-  
-
 }

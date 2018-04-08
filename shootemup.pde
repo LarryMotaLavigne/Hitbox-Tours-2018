@@ -37,6 +37,7 @@ SoundMaster soundMaster;
 /******************************************************************************************/
 void setup()
 {
+  //surface.setLocation(200,200);
   size(1280, 720, P2D);
   noSmooth();
   noStroke();
