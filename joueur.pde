@@ -7,6 +7,8 @@ class Joueur extends PlayableObject
   PImage[][] joueur = new PImage[3][2];
   SoundMaster soundMaster;
 
+  int timeSinceLastHit = 0;
+
   Joueur(SoundMaster p_soundMaster)
   {
     for (int i = 0; i < 3; i++)
@@ -22,6 +24,7 @@ class Joueur extends PlayableObject
     }
 
     soundMaster = p_soundMaster;
+    timeSinceLastHit = millis();
   }
 
   void resetPlayer()
@@ -54,6 +57,7 @@ class Joueur extends PlayableObject
     if (vie <= 0)
     {
       image(joueur[2][(frameCount/5)%2], pos[0], pos[1], size[0], size[1]);
+      soundMaster.playSoundEffect("playerDeath");
     }
     else if (degat > 0)
     {
@@ -78,8 +82,12 @@ class Joueur extends PlayableObject
 
   void degat()
   {
-    vie --;
-    degat = 15;
+    if(canBeHit()){
+      timeSinceLastHit = millis();
+      vie --;
+      degat = 15;
+      soundMaster.playSoundEffect("playerHit");
+    }
   }
 
   void soin()
@@ -118,5 +126,9 @@ class Joueur extends PlayableObject
   {
     tirs.add(new Tir(pos[0], pos[1]));
     soundMaster.playSoundEffect("baseLaserShot");
+  }
+  
+  boolean canBeHit(){
+    return (millis() - timeSinceLastHit) > 2000;
   }
 }

@@ -9,7 +9,14 @@ Music musicLevel_1;
 SoundEffect baseLaserShot;
 
 // SONS MISC
+// ENNEMY
 SoundEffect ennemyHit;
+OneTimeSoundEffect bossDeath;
+OneTimeSoundEffect ennemyDeath;
+
+// PLAYER
+SoundEffect playerHit;
+OneTimeSoundEffect playerDeath;
 
   SoundMaster(Minim p_minim){
     minim = p_minim;
@@ -22,7 +29,15 @@ SoundEffect ennemyHit;
     baseLaserShot = new SoundEffect(minim, "baseLaserShot", "/Sound/Shoot/Remastered/VolumeAdjusted/BaseLaserShotRM.mp3");
     
     // MISC
+    // ENNEMY
     ennemyHit = new SoundEffect(minim, "ennemyHit", "/Sound/Misc/Remastered/VolumeAdjusted/EnnemyHitRM.mp3");
+    ennemyDeath = new OneTimeSoundEffect(minim, "ennemyDeath", "/Sound/Misc/Remastered/EnnemyDeathRM.mp3");
+    bossDeath = new OneTimeSoundEffect(minim, "bossDeath", "/Sound/Misc/Remastered/VolumeAdjusted/BossDeathRM.mp3");
+    
+    // PLAYER
+    playerHit = new SoundEffect(minim, "playerHit", "/Sound/Misc/Remastered/PlayerHitRM.mp3");
+    playerDeath = new OneTimeSoundEffect(minim, "playerDeath", "/Sound/Misc/Remastered/PlayerDeathRM.mp3");
+    
   }
 
   void playIntro(){
@@ -45,12 +60,31 @@ SoundEffect ennemyHit;
   
   void playSoundEffect(String effectName){
     switch(effectName){
+      // SHOT
       case "baseLaserShot":
         baseLaserShot.start();
         break;
       
+      // ENNEMY
       case "ennemyHit":
         ennemyHit.start();
+        break;
+      
+      case "ennemyDeath":
+        ennemyDeath.start();
+        break;
+      
+      case "bossDeath":
+        bossDeath.start();
+        break;
+        
+      // PLAYER
+      case "playerHit":
+        playerHit.start();
+        break;
+      
+      case "playerDeath":
+        playerDeath.start();
         break;
     }
   }
@@ -104,6 +138,10 @@ class SoundEffect extends BaseSound {
     player2 = minim.loadFile(p_effectPath);
   }
   
+  void startOneTimeEffect(){
+  
+  }
+  
   void start(){
     if(usePlayer2){
       startPlayer(player2);
@@ -118,5 +156,20 @@ class SoundEffect extends BaseSound {
   void startPlayer(AudioPlayer p_player){
     p_player.rewind();
     p_player.play();
+  }
+}
+
+class OneTimeSoundEffect extends SoundEffect{
+  boolean hasBeenPlayed = false;
+  
+  OneTimeSoundEffect(Minim p_minim, String p_effectName, String p_effectPath){
+    super(p_minim, p_effectName, p_effectPath);
+  }
+  
+  void start(){
+    if(!hasBeenPlayed){
+      hasBeenPlayed = true;
+      super.start();
+    }
   }
 }
