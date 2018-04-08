@@ -16,6 +16,10 @@ class Boss extends NonPlayableObject
 
   SoundMaster soundMaster;
   String deathSoundName;
+  
+  int timeOfDeath = 0;
+  boolean isAlive = true;
+  int delayForDeathAnimation = 3000;
  
   Boss(SoundMaster p_soundMaster, String p_deathSoundName){
     soundMaster = p_soundMaster;
@@ -63,10 +67,19 @@ class Boss extends NonPlayableObject
 
   boolean moveDead()
   {
-    if(size[1] + pos[1] > 0){
-      pos[1] += 5;
+    if(isAlive){
+      timeOfDeath = millis();
+      isAlive = false;
+      
+      return false;
     }
-    return true;
+    else{
+      if(size[1] + pos[1] > 0){
+        pos[1] += 5;
+      }
+      
+      return millis() - timeOfDeath > delayForDeathAnimation;
+    }
   }
   
   void deplacer()
