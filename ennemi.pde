@@ -1,23 +1,27 @@
-class Ennemi
+class Ennemi extends NonPlayableObject
 {
   int[] pos = { width };
   PImage[] ennemi = new PImage[2];
   Ennemi()
   {
-    for (int i = 0; i < 2; i++) ennemi[i] = loadImage("poisson img"+i+".png");
-
-    pos = append(pos, int(random(height-90-98-10)));
+    for (int i = 0; i < 2; i++) 
+    {
+      ennemi[i] = loadImage("poisson img"+i+".png");
+    }
+    
+    pos = append(pos, int(random(height-90-98-10)));  
   }
+  
   void deplacer()
   {
     pos[0] -= 5;
   }
+  
   void afficher()
   {
-    //stroke(255, 0, 0);
-    //rect(pos[0], pos[1], 110, 90);
     image(ennemi[(frameCount/5)%2],pos[0], pos[1], 168, 90);
   }
+  
   boolean collision()
   {
     if ((joueur.pos[0] > pos[0] && joueur.pos[0] < pos[0]+110 || joueur.pos[0]+152 > pos[0] && joueur.pos[0]+152 < pos[0]+110) && (pos[1] > joueur.pos[1] && pos[1] < joueur.pos[1]+120 || pos[1]+90 > joueur.pos[1] && pos[1]+90 < joueur.pos[1]+120)) // joueur.pos[1] >= pos[1] && joueur.pos[1] < pos[1]+120 || joueur.pos[0] > pos[0] || joueur.pos[0]+152 < 152)
@@ -36,4 +40,5 @@ class Ennemi
     }
     return false;
   }
+  
 }

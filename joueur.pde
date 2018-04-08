@@ -1,9 +1,7 @@
-class Joueur
+class Joueur extends PlayableObject
 {
-  int frequenceTirs = 0, vie = 3, degat = 0, score;
   int[] pos = { 100, 360 };
   PImage[] joueur = new PImage[2], coeur = new PImage[8];
-  ArrayList<Tir> tirs = new ArrayList<Tir>();
   
   Joueur()
   {
@@ -24,31 +22,7 @@ class Joueur
     //joueur = new PImage[4]; coeur = new PImage[8];
     //tirs = new ArrayList<Tir>();
   }
-  
-  void action(boolean[] touches)
-  {
-    if (touches[0] && pos[1] > 0) pos[1] -= 10;
-    if (touches[1] && pos[0] > 0) pos[0] -= 10;
-    if (touches[2] && pos[1] < height-120-98) pos[1] += 10;
-    if (touches[3] && pos[0] < width-152) pos[0] += 10;
-    if (touches[4])
-    {
-      if (frequenceTirs%12 == 0)
-      {
-        tirer();
-      }
-      frequenceTirs++;
-    } else
-    {
-      frequenceTirs = 0;
-    }
-    for (Tir tir : tirs)
-    {
-      tir.deplacer();
-      tir.afficher();
-    }
-  }
-  
+    
   void afficher()
   {
     for (int i = 0; i < vie; i++)
@@ -99,37 +73,9 @@ class Joueur
     degat = -15;
   }
   
-  void tirer()
-  {
-    tirs.add(new Tir(pos[0], pos[1]));
-  }
+
   
   
   
-  class Tir
-  {
-    int[] pos = new int[2];
-    
-    Tir(int x, int y)
-    {
-      pos[0] = x + 110;
-      pos[1] = y + 90;
-    }
-    
-    void deplacer()
-    {
-      pos[0] += 50;
-    }
-    
-    void afficher()
-    {
-      //stroke(4, 168, 255);
-      stroke(255,0,0);
-      strokeWeight(7);
-      line(pos[0], pos[1], pos[0]+20, pos[1]);
-      stroke(255);
-      strokeWeight(1);
-      line(pos[0], pos[1], pos[0]+20, pos[1]);
-    }
-  }
+
 }
