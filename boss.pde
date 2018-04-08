@@ -19,6 +19,8 @@ class Boss extends NonPlayableObject
   Boss(SoundMaster p_soundMaster, String p_deathSoundName){
     soundMaster = p_soundMaster;
     deathSoundName = p_deathSoundName;
+    
+    timeSinceLastHit = millis();
   }
   
   
@@ -98,20 +100,21 @@ class Boss extends NonPlayableObject
       return true;
     }
     
-    // If the boss receive a shot
-    if(canBeHit()){
+    // If the boss receive a shot      
       for (int i = 0; i < joueur.tirs.size(); i++)
       {
         if (joueur.tirs.get(i).pos[1] >= pos[1] && joueur.tirs.get(i).pos[1] < pos[1]+size[1] && joueur.tirs.get(i).pos[0] > pos[0] && joueur.tirs.get(i).pos[0]+joueur.tirs.get(i).size[0] < pos[0]+size[0])
         {
-          joueur.tirs.remove(i);        
-          soundMaster.playSoundEffect("ennemyHit");
-          joueur.score++;
-          return true;
+          if(canBeHit()){
+            timeSinceLastHit = millis();
+            joueur.tirs.remove(i);        
+            soundMaster.playSoundEffect("ennemyHit");
+            joueur.score++;
+            return true;
         }
       }
     }
-    
+
     return false; 
   }
   
