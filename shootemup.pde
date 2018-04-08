@@ -90,7 +90,7 @@ void drawMenu()
   soundMaster.playIntro();
 
   text(mouseX+"    "+mouseY, mouseX, mouseY);
-  decor.afficherFond();
+  decor.afficherMenu();
   fill(255, 255, 255);
   rect(width/2 - 60, height/2 - 85, 120, 30, 3);
   fill(255, 255, 255);
@@ -217,6 +217,8 @@ void gestionDesBoss()
 
   if (calmar.vie >= 0)
   {
+    calmar.attackCollision();
+    calmar.attack();
     calmar.deplacer();
     calmar.afficher();
   } else
@@ -224,6 +226,8 @@ void gestionDesBoss()
     calmar.moveDead(); 
     calmar.afficherDeath();
   }
+  
+  
 }
 
 

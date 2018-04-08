@@ -8,6 +8,8 @@ class Calmar extends Boss
       boss[i] = loadImage("boss/calmar img"+i+".png");
     }
     deadBoss = loadImage("boss/calmar-dead.png");
+    attack = loadImage("boss/jet_d_encre.png");
+    
     
     pos = append(pos, height/2);
     vie = 10;

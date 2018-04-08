@@ -9,6 +9,7 @@ class Owen extends Boss
       boss[i] = loadImage("owen img"+i+".png");
     }
     
-    pos = append(pos, height/2);  
+    pos = append(pos, height/2);
+    vie = 30;
   }
 }
