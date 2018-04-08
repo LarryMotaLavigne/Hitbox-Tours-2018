@@ -16,6 +16,6 @@ class Calmar extends Boss
     }
     
     pos = append(pos, height/2);
-    vie = 10;
+    vie = 12;
   }
 }

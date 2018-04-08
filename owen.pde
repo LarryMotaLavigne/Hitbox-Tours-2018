@@ -16,6 +16,6 @@ class Owen extends Boss
     }
         
     pos = append(pos, height/2);
-    vie = 30;
+    vie = 20;
   }
 }
