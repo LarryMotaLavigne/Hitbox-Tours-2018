@@ -9,9 +9,12 @@ class Decor
     for (int i = 1; i < 9; i++) filigranes[i-1] = loadImage("filigranes/texture00"+i+".png");
   }
   
-  void afficher()
+  void afficherFond()
   {
     background(fond); //, 0, 0, width, height);
+  }
+  void afficherFiligranes()
+  {
     image(filigranes[(frameCount/3)%8], 0, 0);
   }
 }

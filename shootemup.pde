@@ -1,8 +1,8 @@
 // Game Parameters
 boolean pause = false;
 boolean[] touches = new boolean[5];
-int ennemisGeneres = 0, moche = 0;
-int vitesse = 5;
+int ennemisGeneres = 0, moche = 0, vitesse = 5, IDCitation;
+String[] citations;
 
 // Image & Font Management
 PFont police;
@@ -30,8 +30,14 @@ void setup()
   noSmooth();
   noStroke();
   noFill();
+  citations = loadStrings("citations.txt");
+  for (int i = 0; i < citations.length; i++)
+  {
+    citations[i] = citations[i].replaceAll("§","\n");
+  }
+  IDCitation = int(random(0, citations.length));
   //colorMode(HSB);
-  police = createFont("Velvet Heart Font.ttf", 48);
+  police = createFont("Velvet Heart Font.ttf", 128);
   textSize(48);
   textFont(police);
   //fonteContours = createFont("data/WIDEAWAKE.TTF", 128);
@@ -69,13 +75,24 @@ void drawMenu()
   fill(255, 255, 255);
   rect(width/2 - 60, height/2 + 15, 120, 30, 3);
   textAlign(CENTER);
-  //textSize(26);
-  text("Darwin Quest : A Bad Owen", width/2, 150);
+  textSize(128);
+  text("Darwin's Quest", width/2, 150);
+  textSize(80);
+  text("A Bad Owen", width/2, 200);
+  textSize(48);
   fill(0, 0, 0);
-  textAlign(CENTER);
   text("Start", width/2, 300);
-  textAlign(CENTER);
   text("Exit", width/2, 400);
+  rectMode(CENTER);
+  stroke(0);
+  fill(255,200);
+  rect(width/2, height-140, 600, 140, 3);
+  fill(0);
+  noStroke();
+  textAlign(CENTER, CENTER);
+  textLeading(40);
+  text(citations[IDCitation], width/2, height-150);
+  rectMode(CORNER);
 }
 
 void drawGame()
@@ -85,10 +102,11 @@ void drawGame()
   {
     surface.setTitle(str(frameRate));
 
-    decor.afficher();
+    decor.afficherFond();
     joueur.afficher();
     gestionDesEnnemis();
     joueur.action(touches);
+    decor.afficherFiligranes();
   } else if (moche++ == 0)
   {
     for (int i = 0; i < touches.length; i++) touches[i] = false;
@@ -106,8 +124,9 @@ void drawGameOver()
   fill(255, 255, 255);
   rect(width/2 - 60, height/2 + 15, 120, 30, 3);
   textAlign(CENTER);
-  //textSize(35);
+  textSize(80);
   text("GAME OVER", width/2, 150);
+  textSize(48);
   fill(0, 0, 0);
   textAlign(CENTER);
   text("Retry", width/2, 300);
@@ -211,6 +230,7 @@ void mousePressed()
       state = Scene.Game;
     } else if ((mouseX>=(width/2-60) && mouseX<=(width/2+60)) && (mouseY>=(height/2+15) && mouseY<=(height/2+45)))
     {
+      IDCitation = int(random(0, citations.length));
       state = Scene.Menu;
     }
   }
