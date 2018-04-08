@@ -107,8 +107,6 @@ void drawMenu()
   background(255);
   // Music de l'intro
   soundMaster.playIntro();
-  pushMatrix();
-  translate(0, random(8)-4);
   text(mouseX+"    "+mouseY, mouseX, mouseY);
   decor.afficherFond();
   fill(255, 255, 255);
@@ -137,7 +135,6 @@ void drawMenu()
   text(citations[IDCitation], width/2, height-150);
   rectMode(CORNER);
   decor.afficherFiligranes();
-  popMatrix();
 }
 
 void drawWin()
